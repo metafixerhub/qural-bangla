@@ -51,7 +51,11 @@ jobs:
       - name: Build Debug APK
         run: |
           cd android
-          ./gradlew assembleDebug -x test -x lint --no-daemon
+          ./gradlew assembleDebug -x test -x lint --no-daemon > build.log 2>&1 || {
+            echo "==================== BUILD LOG OUTPUT ===================="
+            cat build.log
+            exit 1
+          }
 
       - name: Upload Debug APK Artifact
         uses: actions/upload-artifact@v4
