@@ -51,23 +51,13 @@ jobs:
       - name: Build Debug APK
         run: |
           cd android
-          ./gradlew assembleDebug -x test -x lint --no-daemon 2>&1 | tee build.log || {
-            echo "==================== GRADLE ERROR SUMMARY ===================="
-            grep -A 40 "What went wrong" build.log || tail -n 60 build.log
-            exit 1
-          }
-
-      - name: Prepare APK for Release
-        run: |
-          APK_PATH=$(find android -name "*.apk" | head -n 1)
-          echo "Found APK at: $APK_PATH"
-          cp "$APK_PATH" Quran-Audio-Bangla-v1.0.apk
+          ./gradlew assembleDebug -x test -x lint --no-daemon
 
       - name: Upload Debug APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Quran-Audio-Bangla-APK
-          path: Quran-Audio-Bangla-v1.0.apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
           retention-days: 14
 
       - name: Publish to GitHub Releases
@@ -82,13 +72,13 @@ jobs:
             ## কুরআনুল কারীম (Quran Audio Bangla) - Release v1.0.0
 
             ### 📱 Direct Download
-            Direct 1-click APK download (no login or unzipping needed):
-            - **Quran-Audio-Bangla-v1.0.apk**
+            Direct 1-click APK download:
+            - Click **app-debug.apk** below to download directly to your phone.
 
             ### ✨ Key Features
             - **114 Surahs Offline Audio:** Full playback with seekbar, speed control, repeat modes.
             - **Ayah-by-Ayah Arabic & Bangla:** Live AlQuran Cloud API + automatic offline caching.
             - **Background Audio:** Play audio while screen is locked or browsing other apps.
             - **Islamic Design:** Emerald green & gold UI with authentic Arabic Uthmani script.
-          files: Quran-Audio-Bangla-v1.0.apk
+          files: android/app/build/outputs/apk/debug/app-debug.apk
           token: ${{ secrets.GITHUB_TOKEN }}
