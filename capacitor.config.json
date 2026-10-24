@@ -1,0 +1,11 @@
+{
+  "appId": "com.banglaquran.audio",
+  "appName": "Quran Audio Bangla",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "allowMixedContent": true
+  }
+}

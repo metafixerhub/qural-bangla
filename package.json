@@ -1,0 +1,23 @@
+{
+  "name": "quran-audio-bangla",
+  "version": "1.0.0",
+  "description": "Quran Audio Bangla with Arabic Uthmani and Bangla translation",
+  "main": "index.html",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "cap:add": "npx cap add android",
+    "cap:sync": "npx cap sync android",
+    "cap:open": "npx cap open android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^7.0.1",
+    "@capacitor/cli": "^7.0.1",
+    "@capacitor/core": "^7.0.1"
+  },
+  "devDependencies": {
+    "vite": "^6.2.0"
+  }
+}

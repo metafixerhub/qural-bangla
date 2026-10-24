@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Build outputs
+dist/
+build/
+
+# Audio files (large binary assets exceeding GitHub 100MB limit)
+public/audio/*.mp3
+public/audio/*.tmp
+
+# Capacitor Android build artifacts & synced assets
+android/.gradle/
+android/build/
+android/app/build/
+android/app/src/main/assets/public/
+
+# Environment and IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
