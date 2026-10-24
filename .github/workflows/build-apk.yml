@@ -29,6 +29,11 @@ jobs:
           java-version: '17'
           cache: 'gradle'
 
+      - name: Accept Android Licenses & Prepare SDK
+        run: |
+          yes | sdkmanager --licenses || true
+          sdkmanager "platforms;android-35" "build-tools;35.0.0" || true
+
       - name: Install npm dependencies
         run: npm ci || npm install
 
