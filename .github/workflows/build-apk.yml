@@ -59,7 +59,9 @@ jobs:
 
       - name: Prepare APK for Release
         run: |
-          cp android/app/build/outputs/apk/debug/app-debug.apk Quran-Audio-Bangla-v1.0.apk
+          APK_PATH=$(find android -name "*.apk" | head -n 1)
+          echo "Found APK at: $APK_PATH"
+          cp "$APK_PATH" Quran-Audio-Bangla-v1.0.apk
 
       - name: Upload Debug APK Artifact
         uses: actions/upload-artifact@v4
@@ -88,6 +90,5 @@ jobs:
             - **Ayah-by-Ayah Arabic & Bangla:** Live AlQuran Cloud API + automatic offline caching.
             - **Background Audio:** Play audio while screen is locked or browsing other apps.
             - **Islamic Design:** Emerald green & gold UI with authentic Arabic Uthmani script.
-          files: |
-            Quran-Audio-Bangla-v1.0.apk
+          files: Quran-Audio-Bangla-v1.0.apk
           token: ${{ secrets.GITHUB_TOKEN }}
