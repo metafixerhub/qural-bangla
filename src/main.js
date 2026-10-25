@@ -745,7 +745,7 @@ class QuranApp {
         artist: 'কুরআনুল কারীম (বাংলা অডিও)',
         album: 'আল-কুরআনুল কারীম',
         artwork: [
-          { src: 'icons/icon.svg', sizes: '512x512', type: 'image/svg+xml' }
+          { src: 'icons/icon.png', sizes: '512x512', type: 'image/png' }
         ]
       });
 
