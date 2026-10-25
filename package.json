@@ -1,6 +1,6 @@
 {
   "name": "quran-audio-bangla",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Quran Audio Bangla with Arabic Uthmani and Bangla translation",
   "main": "index.html",
   "type": "module",

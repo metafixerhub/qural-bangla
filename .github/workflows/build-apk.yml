@@ -68,22 +68,23 @@ jobs:
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.0.2
-          name: "Quran Audio Bangla v1.0.2"
+          tag_name: v1.0.3
+          name: "Quran Audio Bangla v1.0.3"
           draft: false
           prerelease: false
           body: |
-            ## কুরআনুল কারীম (Quran Audio Bangla) - Release v1.0.2
+            ## কুরআনুল কারীম (Quran Audio Bangla) - Release v1.0.3
 
             ### 📱 Direct Download
             Direct 1-click APK download:
             - Click **app-debug.apk** below to download directly to your Android device.
 
-            ### ✨ What's New in v1.0.2
-            - **🕌 Official Authentic App Icon:** Applied the official Al-Quran Al-Kareem illuminated rosette icon across all Android launcher formats (adaptive, square, round) and web assets.
+            ### ✨ What's New in v1.0.3
+            - **🎧 Uninterrupted Background Audio:** Audio now plays continuously when the screen is locked, in the background, or while using other apps via native Android Foreground Service with `WAKE_LOCK` and media playback support.
+            - **🔒 Lock Screen & Notification Controls:** Integrated lockscreen media controls (play, pause, next, previous, seek) and notification tray controls.
+            - **🕌 Official Authentic App Icon:** Applied the official Al-Quran Al-Kareem illuminated rosette icon across all Android launcher formats and web assets.
             - **📱 Mobile Screen Close Button Fix:** Shifted the reader close button down with safe-area support (`env(safe-area-inset-top)`) to avoid camera notch/status bar overlap.
-            - **🎵 Auto-Open Player & Live Timings:** Automatically opens player view on play with elapsed time, countdown remaining time, and total duration shown in both full player and sticky bottom player bar.
-            - **🔄 Playback Session Persistence:** Remembers where you stopped listening when leaving the app or browsing elsewhere, with a 1-tap "Resume Session" banner to continue from that exact second.
-            - **🔍 Ayah Reader Font Scaling & Copy:** Added in-reader text zoom (`A-` / `A+`) and one-tap Ayah copy with Bengali translation.
+            - **🎵 Auto-Open Player & Live Timings:** Automatically opens player view on play with elapsed time, countdown remaining time, and total duration.
+            - **🔄 Playback Session Persistence:** Remembers where you stopped listening when leaving the app or browsing elsewhere, with a 1-tap "Resume Session" banner.
           files: android/app/build/outputs/apk/debug/app-debug.apk
           token: ${{ secrets.GITHUB_TOKEN }}

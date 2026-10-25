@@ -155,6 +155,17 @@ class QuranApp {
         }
       }
 
+      // Media Session Position State (lockscreen scrubber sync)
+      if ('mediaSession' in navigator && 'setPositionState' in navigator.mediaSession && this.audio.duration) {
+        try {
+          navigator.mediaSession.setPositionState({
+            duration: this.audio.duration,
+            playbackRate: this.playbackRate,
+            position: this.audio.currentTime
+          });
+        } catch (e) {}
+      }
+
       // Throttled auto-save session state (every ~1.5 seconds)
       const now = Date.now();
       if (now - this.lastSavedTime > 1500) {
@@ -722,6 +733,24 @@ class QuranApp {
       this.medallionContainer.classList.remove('rotating');
     }
 
+    // Media Session playback state for lockscreen
+    if ('mediaSession' in navigator) {
+      navigator.mediaSession.playbackState = this.isPlaying ? 'playing' : 'paused';
+    }
+
+    // Native Android Background Audio Service integration
+    if (window.NativeAudioService && this.currentIndex >= 0) {
+      const surah = this.surahs[this.currentIndex];
+      if (this.isPlaying) {
+        window.NativeAudioService.startBackgroundAudio(
+          `${toBanglaNumber(surah.number)}. ${surah.nameBangla} (${surah.nameArabic})`,
+          `সূরা ${surah.nameBangla} • ${surah.meaningBangla}`
+        );
+      } else {
+        window.NativeAudioService.stopBackgroundAudio();
+      }
+    }
+
     this.updateReaderAudioButton();
     this.renderSurahList();
   }
@@ -745,20 +774,43 @@ class QuranApp {
         artist: 'কুরআনুল কারীম (বাংলা অডিও)',
         album: 'আল-কুরআনুল কারীম',
         artwork: [
+          { src: 'icons/icon-512.png', sizes: '512x512', type: 'image/png' },
+          { src: 'icons/icon-192.png', sizes: '192x192', type: 'image/png' },
           { src: 'icons/icon.png', sizes: '512x512', type: 'image/png' }
         ]
       });
+
+      navigator.mediaSession.playbackState = this.isPlaying ? 'playing' : 'paused';
 
       navigator.mediaSession.setActionHandler('play', () => this.togglePlay());
       navigator.mediaSession.setActionHandler('pause', () => this.togglePlay());
       navigator.mediaSession.setActionHandler('previoustrack', () => this.playPrev());
       navigator.mediaSession.setActionHandler('nexttrack', () => this.playNext());
+      navigator.mediaSession.setActionHandler('seekbackward', (details) => {
+        const skip = details.seekOffset || 10;
+        this.audio.currentTime = Math.max(0, this.audio.currentTime - skip);
+        this.savePlaybackSession();
+      });
+      navigator.mediaSession.setActionHandler('seekforward', (details) => {
+        const skip = details.seekOffset || 10;
+        if (this.audio.duration) {
+          this.audio.currentTime = Math.min(this.audio.duration, this.audio.currentTime + skip);
+          this.savePlaybackSession();
+        }
+      });
       navigator.mediaSession.setActionHandler('seekto', (details) => {
         if (details.seekTime && this.audio.duration) {
           this.audio.currentTime = details.seekTime;
           this.savePlaybackSession();
         }
       });
+    }
+
+    if (window.NativeAudioService) {
+      window.NativeAudioService.startBackgroundAudio(
+        `${toBanglaNumber(surah.number)}. ${surah.nameBangla} (${surah.nameArabic})`,
+        `সূরা ${surah.nameBangla} • ${surah.meaningBangla}`
+      );
     }
   }
 
