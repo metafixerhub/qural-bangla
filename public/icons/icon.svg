@@ -1,18 +1,177 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
-    <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#0a4339"/>
-      <stop offset="100%" stop-color="#031c17"/>
+    <!-- Background Radial Gradient -->
+    <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0a463b"/>
+      <stop offset="60%" stop-color="#052721"/>
+      <stop offset="100%" stop-color="#021411"/>
     </radialGradient>
-    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#f5d77f"/>
-      <stop offset="50%" stop-color="#d4af37"/>
-      <stop offset="100%" stop-color="#aa841c"/>
+
+    <!-- Rich Royal Gold Gradient -->
+    <linearGradient id="goldLustre" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff2be"/>
+      <stop offset="25%" stop-color="#e8be56"/>
+      <stop offset="50%" stop-color="#fdf0b0"/>
+      <stop offset="75%" stop-color="#c89628"/>
+      <stop offset="100%" stop-color="#8d6210"/>
     </linearGradient>
+
+    <!-- Deep Gold Metallic -->
+    <linearGradient id="goldMetallic" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fcedb4"/>
+      <stop offset="50%" stop-color="#d4af37"/>
+      <stop offset="100%" stop-color="#9a7217"/>
+    </linearGradient>
+
+    <!-- Quran Leather Cover Gradient -->
+    <linearGradient id="leatherCover" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d594b"/>
+      <stop offset="40%" stop-color="#083e34"/>
+      <stop offset="100%" stop-color="#04201b"/>
+    </linearGradient>
+
+    <!-- Page Edges Gilded Gold -->
+    <linearGradient id="gildedPages" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#b88c2a"/>
+      <stop offset="35%" stop-color="#ffebaa"/>
+      <stop offset="70%" stop-color="#d4a737"/>
+      <stop offset="100%" stop-color="#8b6314"/>
+    </linearGradient>
+
+    <!-- Ribbon Gradient -->
+    <linearGradient id="ribbonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffdd78"/>
+      <stop offset="50%" stop-color="#e2a62d"/>
+      <stop offset="100%" stop-color="#966107"/>
+    </linearGradient>
+
+    <!-- Soft Drop Shadow -->
+    <filter id="holyGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+
+    <filter id="mushafShadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#000000" flood-opacity="0.65"/>
+    </filter>
   </defs>
-  <rect width="512" height="512" rx="100" fill="url(#bgGrad)"/>
-  <circle cx="256" cy="256" r="210" fill="none" stroke="url(#goldGrad)" stroke-width="8" stroke-dasharray="8 6"/>
-  <circle cx="256" cy="256" r="190" fill="none" stroke="url(#goldGrad)" stroke-width="3"/>
-  <path d="M 230 140 A 120 120 0 1 0 350 320 A 135 135 0 1 1 230 140 Z" fill="url(#goldGrad)"/>
-  <polygon points="340,190 350,215 375,215 355,230 362,255 340,240 318,255 325,230 305,215 330,215" fill="url(#goldGrad)"/>
+
+  <!-- App Icon Base Squircle -->
+  <rect width="512" height="512" rx="112" fill="url(#bgGlow)"/>
+
+  <!-- Ornate Decorative Outer Ring -->
+  <circle cx="256" cy="256" r="236" fill="none" stroke="url(#goldLustre)" stroke-width="2" stroke-opacity="0.3"/>
+  <circle cx="256" cy="256" r="226" fill="none" stroke="url(#goldLustre)" stroke-width="3" stroke-dasharray="6 8" stroke-opacity="0.5"/>
+  <circle cx="256" cy="256" r="216" fill="none" stroke="url(#goldLustre)" stroke-width="1.5" stroke-opacity="0.3"/>
+
+  <!-- Radial Divine Rays (Subtle) -->
+  <g opacity="0.18">
+    <path d="M256 30 L256 70 M256 442 L256 482 M30 256 L70 256 M442 256 L482 256" stroke="url(#goldLustre)" stroke-width="3"/>
+    <path d="M96 96 L124 124 M388 388 L416 416 M96 416 L124 388 M388 124 L416 96" stroke="url(#goldLustre)" stroke-width="3"/>
+    <path d="M180 50 L195 86 M317 426 L332 462 M50 180 L86 195 M426 317 L462 332" stroke="url(#goldLustre)" stroke-width="2"/>
+    <path d="M332 50 L317 86 M195 426 L180 462 M462 180 L426 195 M86 317 L50 332" stroke="url(#goldLustre)" stroke-width="2"/>
+  </g>
+
+  <!-- THE HOLY MUSHAF (AL-QURAN AL-KAREEM) -->
+  <g filter="url(#mushafShadow)">
+    
+    <!-- Gilded Book Pages Layer (Underneath Cover on Right Edge) -->
+    <path d="M366 102 L388 116 L388 408 L366 400 Z" fill="url(#gildedPages)" stroke="#7a550f" stroke-width="1.5"/>
+    <!-- Page lines simulation -->
+    <line x1="372" y1="108" x2="372" y2="402" stroke="#fffae0" stroke-width="0.8" opacity="0.6"/>
+    <line x1="378" y1="112" x2="378" y2="405" stroke="#9e731b" stroke-width="0.8" opacity="0.8"/>
+    <line x1="384" y1="115" x2="384" y2="407" stroke="#fffae0" stroke-width="0.8" opacity="0.6"/>
+
+    <!-- Bookmark Golden Ribbon dangling from top-right to bottom -->
+    <path d="M336 94 Q352 140 348 240 Q344 340 376 438 L360 448 L350 430 L340 446 Q318 350 322 240 Q326 140 316 94 Z" fill="url(#ribbonGrad)" filter="url(#holyGlow)"/>
+
+    <!-- Main Front Leather Cover of Quran -->
+    <rect x="124" y="94" width="246" height="324" rx="18" fill="url(#leatherCover)" stroke="url(#goldLustre)" stroke-width="3.5"/>
+
+    <!-- Spine Curve Highlight (Left side of book) -->
+    <path d="M124 112 Q120 256 124 400" stroke="url(#goldLustre)" stroke-width="5" stroke-linecap="round" opacity="0.8"/>
+    <rect x="126" y="96" width="16" height="320" rx="6" fill="#041a15" opacity="0.45"/>
+
+    <!-- Ornate Islamic Border Frame 1 (Outer) -->
+    <rect x="146" y="116" width="204" height="280" rx="10" fill="none" stroke="url(#goldLustre)" stroke-width="2.5"/>
+
+    <!-- Ornate Islamic Border Frame 2 (Inner Double) -->
+    <rect x="154" y="124" width="188" height="264" rx="7" fill="none" stroke="url(#goldMetallic)" stroke-width="1.2" stroke-dasharray="4 3"/>
+
+    <!-- Four Ornate Arabesque Corner Pieces (Lachak) -->
+    <!-- Top Left -->
+    <g transform="translate(152, 122)">
+      <path d="M4 4 L38 4 C38 18 28 28 28 38 C18 28 4 38 4 4 Z" fill="url(#goldMetallic)"/>
+      <circle cx="16" cy="16" r="3" fill="#063129"/>
+    </g>
+    <!-- Top Right -->
+    <g transform="translate(344, 122) scale(-1, 1)">
+      <path d="M4 4 L38 4 C38 18 28 28 28 38 C18 28 4 38 4 4 Z" fill="url(#goldMetallic)"/>
+      <circle cx="16" cy="16" r="3" fill="#063129"/>
+    </g>
+    <!-- Bottom Left -->
+    <g transform="translate(152, 390) scale(1, -1)">
+      <path d="M4 4 L38 4 C38 18 28 28 28 38 C18 28 4 38 4 4 Z" fill="url(#goldMetallic)"/>
+      <circle cx="16" cy="16" r="3" fill="#063129"/>
+    </g>
+    <!-- Bottom Right -->
+    <g transform="translate(344, 390) scale(-1, -1)">
+      <path d="M4 4 L38 4 C38 18 28 28 28 38 C18 28 4 38 4 4 Z" fill="url(#goldMetallic)"/>
+      <circle cx="16" cy="16" r="3" fill="#063129"/>
+    </g>
+
+    <!-- Side Arabesque Accents on Frames -->
+    <polygon points="248,124 256,116 264,124 256,132" fill="url(#goldLustre)"/>
+    <polygon points="248,388 256,380 264,388 256,396" fill="url(#goldLustre)"/>
+    <polygon points="154,256 146,248 154,240 162,248" fill="url(#goldLustre)"/>
+    <polygon points="342,256 334,248 342,240 350,248" fill="url(#goldLustre)"/>
+
+    <!-- Central Illuminated Oval Medallion (Turunjah / Shamseh) -->
+    <g transform="translate(248, 256)">
+      <!-- Outer Radiant Rosette / Petals -->
+      <ellipse cx="0" cy="0" rx="66" ry="78" fill="#04201a" stroke="url(#goldLustre)" stroke-width="2.5"/>
+      <ellipse cx="0" cy="0" rx="58" ry="70" fill="none" stroke="url(#goldMetallic)" stroke-width="1" stroke-dasharray="3 3"/>
+      
+      <!-- Islamic 8-Point Star in Medallion Center -->
+      <g fill="none" stroke="url(#goldLustre)" stroke-width="1.8" opacity="0.85">
+        <rect x="-36" y="-36" width="72" height="72" rx="4"/>
+        <rect x="-36" y="-36" width="72" height="72" rx="4" transform="rotate(45)"/>
+      </g>
+
+      <!-- Inner Glow Dome -->
+      <ellipse cx="0" cy="0" rx="36" ry="46" fill="url(#bgGlow)" stroke="url(#goldLustre)" stroke-width="1.8"/>
+
+      <!-- Sacred Quranic Calligraphy Motif (القرآن الكريم) -->
+      <!-- Center Al-Quran Calligraphic curves -->
+      <g fill="url(#goldLustre)">
+        <!-- Arabic Calligraphic Crown & Letterings -->
+        <!-- Center core text representation -->
+        <path d="M-18 -18 C-10 -28 10 -28 18 -18 C14 -8 20 6 12 18 C0 26 -12 24 -18 12 C-22 4 -22 -10 -18 -18 Z" fill-opacity="0.25"/>
+        <!-- Calligraphic strokes of 'Al-Quran' -->
+        <path d="M-6 -22 L-2 -22 L-2 14 C-2 18 -6 20 -10 18 C-12 16 -13 12 -11 9 C-9 8 -7 10 -6 12 Z"/>
+        <path d="M4 -22 L8 -22 L8 8 C8 15 3 20 -4 21 L-4 18 C1 17 5 13 5 8 Z"/>
+        <path d="M-14 -6 C-14 -12 -8 -15 -1 -15 L1 -15 C-4 -13 -8 -8 -8 -4 C-8 2 -2 5 4 4 L4 7 C-4 8 -14 3 -14 -6 Z"/>
+        <path d="M8 -4 C12 -8 16 -7 18 -2 C19 3 16 7 10 7 L9 5 C13 5 15 2 14 -1 C13 -4 10 -4 8 -2 Z"/>
+        <circle cx="0" cy="-25" r="2.5"/>
+        <circle cx="8" cy="-25" r="2.5"/>
+        <circle cx="-14" cy="2" r="2"/>
+        <circle cx="16" cy="14" r="2"/>
+        <!-- Tashkeel / Accents -->
+        <path d="M-2 -30 L4 -33 L3 -31 L-3 -28 Z"/>
+        <path d="M-10 14 Q-8 8 -5 12" stroke="url(#goldLustre)" stroke-width="1.5" fill="none"/>
+      </g>
+    </g>
+
+    <!-- Top & Bottom Ornate Book Headpieces -->
+    <path d="M214 136 Q248 144 282 136 Q248 128 214 136 Z" fill="url(#goldLustre)"/>
+    <circle cx="248" cy="136" r="3" fill="#04201a"/>
+    <path d="M214 376 Q248 384 282 376 Q248 368 214 376 Z" fill="url(#goldLustre)"/>
+    <circle cx="248" cy="376" r="3" fill="#04201a"/>
+
+  </g>
+
+  <!-- Bottom Elegant Title In Arabic Script -->
+  <g transform="translate(256, 472)" text-anchor="middle">
+    <text font-family="'Amiri', 'Traditional Arabic', serif" font-size="22" font-weight="bold" fill="url(#goldLustre)" letter-spacing="2">الْقُرْآنُ الْكَرِيم</text>
+  </g>
 </svg>

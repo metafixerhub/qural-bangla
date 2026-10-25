@@ -68,21 +68,22 @@ jobs:
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.0.0
-          name: "Quran Audio Bangla v1.0.0"
+          tag_name: v1.0.1
+          name: "Quran Audio Bangla v1.0.1"
           draft: false
           prerelease: false
           body: |
-            ## কুরআনুল কারীম (Quran Audio Bangla) - Release v1.0.0
+            ## কুরআনুল কারীম (Quran Audio Bangla) - Release v1.0.1
 
             ### 📱 Direct Download
             Direct 1-click APK download:
-            - Click **app-debug.apk** below to download directly to your phone.
+            - Click **app-debug.apk** below to download directly to your Android device.
 
-            ### ✨ Key Features
-            - **114 Surahs Offline Audio:** Full playback with seekbar, speed control, repeat modes.
-            - **Ayah-by-Ayah Arabic & Bangla:** Live AlQuran Cloud API + automatic offline caching.
-            - **Background Audio:** Play audio while screen is locked or browsing other apps.
-            - **Islamic Design:** Emerald green & gold UI with authentic Arabic Uthmani script.
+            ### ✨ What's New in v1.0.1
+            - **🕌 Authentic Quran Icon:** Replaced generic icons with authentic Holy Quran Mushaf (القرآن الكريم) vector artwork with gilded pages, ribbon, and illuminated calligraphy.
+            - **📱 Mobile Screen Close Button Fix:** Shifted the reader close button down with safe-area support (`env(safe-area-inset-top)`) to avoid camera notch/status bar overlap.
+            - **🎵 Auto-Open Player & Live Timings:** Automatically opens player view on play with elapsed time, countdown remaining time, and total duration shown in both full player and sticky bottom player bar.
+            - **🔄 Playback Session Persistence:** Remembers where you stopped listening when leaving the app or browsing elsewhere, with a 1-tap "Resume Session" banner to continue from that exact second.
+            - **🔍 Ayah Reader Font Scaling & Copy:** Added in-reader text zoom (`A-` / `A+`) and one-tap Ayah copy with Bengali translation.
           files: android/app/build/outputs/apk/debug/app-debug.apk
           token: ${{ secrets.GITHUB_TOKEN }}

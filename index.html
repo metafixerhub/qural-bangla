@@ -4,11 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>কুরআনুল কারীম - বাংলা অডিও ও আয়াত</title>
-  <meta name="theme-color" content="#04241e">
+  <meta name="theme-color" content="#031f1a">
   <meta name="description" content="আল-কুরআন ১১৪টি সূরার বাংলা অডিও, বিশুদ্ধ আরবি উসমানী তিলাওয়াত ও বাংলা অনুবাদ। সম্পূর্ণ অফলাইনে ব্যবহারযোগ্য।">
   
   <link rel="stylesheet" href="/src/style.css">
   <link rel="icon" type="image/svg+xml" href="/icons/icon.svg">
+  <link rel="apple-touch-icon" href="/icons/icon.svg">
 </head>
 <body>
 
@@ -16,10 +17,12 @@
   <header class="app-header">
     <div class="header-container">
       <div class="brand-wrapper">
-        <div class="brand-icon">☪</div>
+        <div class="brand-icon">
+          <img src="/icons/icon.svg" alt="পবিত্র কুরআন" class="brand-quran-img" width="38" height="38">
+        </div>
         <div class="brand-title-wrap">
           <h1>কুরআনুল কারীম</h1>
-          <div class="arabic-subtitle">القرآن الكريم - বাংলা অডিও</div>
+          <div class="arabic-subtitle">الْقُرْآنُ الْكَرِيم • বাংলা অডিও</div>
         </div>
       </div>
       <div class="header-status-badge" id="networkStatusBadge">
@@ -31,6 +34,32 @@
 
   <!-- MAIN VIEW -->
   <main class="main-content">
+
+    <!-- RESUME PLAYBACK SESSION BANNER (Restores middle of listening session) -->
+    <section class="resume-session-banner" id="resumeSessionBanner" style="display: none;">
+      <div class="resume-banner-card">
+        <div class="resume-badge-tag">
+          <span class="resume-pulse-dot"></span>
+          <span>পূর্বের সেশন চালু রাখুন</span>
+        </div>
+        <div class="resume-card-body">
+          <div class="resume-surah-icon">
+            <img src="/icons/icon.svg" alt="Quran" width="36" height="36">
+          </div>
+          <div class="resume-info">
+            <div class="resume-surah-name" id="resumeSurahName">সূরা নাম</div>
+            <div class="resume-time-info" id="resumeTimeInfo">০৪:২৫ মিনিটে থেমেছিলেন (মোট ১৪:৩০)</div>
+            <div class="resume-progress-track">
+              <div class="resume-progress-bar" id="resumeProgressBar"></div>
+            </div>
+          </div>
+          <div class="resume-actions">
+            <button class="btn-resume-play" id="btnResumePlay" title="এখনই চালিয়ে যান">▶ শুনুন</button>
+            <button class="btn-resume-dismiss" id="btnResumeDismiss" title="সেশন বাদ দিন" aria-label="বাদ দিন">✕</button>
+          </div>
+        </div>
+      </div>
+    </section>
     
     <!-- SEARCH & FILTERS -->
     <section class="search-filter-section">
@@ -40,7 +69,7 @@
           type="search" 
           id="searchInput" 
           class="search-input" 
-          placeholder="সূরা খুঁজুন (যেমন: ফাতিহা, 001, বাকারা)..."
+          placeholder="সূরা খুঁজুন (যেমন: ফাতিহা, 001, বাকারা, ইয়াসীন)..."
           autocomplete="off"
         >
       </div>
@@ -61,37 +90,60 @@
 
   <!-- STICKY MINI PLAYER BAR -->
   <div class="mini-player-bar" id="miniPlayerBar">
-    <div class="mini-player-progress">
+    <div class="mini-player-progress" id="miniPlayerProgressTrack" title="অগ্রগতি পরিবর্তন করতে ক্লিক করুন">
       <div class="mini-progress-filled" id="miniProgressBar"></div>
     </div>
     <div class="mini-player-content">
-      <div class="mini-surah-info" id="miniSurahInfo">
-        <div class="mini-avatar" id="miniAvatar">📖</div>
+      <div class="mini-surah-info" id="miniSurahInfo" title="পূর্ণ প্লেয়ার খুলতে ক্লিক করুন">
+        <div class="mini-avatar" id="miniAvatar">
+          <img src="/icons/icon.svg" alt="Quran" width="28" height="28">
+        </div>
         <div class="mini-text-details">
-          <div class="mini-title" id="miniTitle">সূরা নির্বাচন করুন</div>
+          <div class="mini-title-row">
+            <span class="mini-title" id="miniTitle">সূরা নির্বাচন করুন</span>
+            <span class="mini-time-tag" id="miniTimeDisplay">০০:০০ / ০০:০০</span>
+          </div>
           <div class="mini-artist" id="miniArtist">বাংলা অডিও তেলাওয়াত</div>
         </div>
       </div>
       <div class="mini-controls">
-        <button class="btn-ctrl" id="miniBtnPrev">⏮</button>
-        <button class="btn-ctrl btn-ctrl-play-main" id="miniBtnPlay">▶</button>
-        <button class="btn-ctrl" id="miniBtnNext">⏭</button>
+        <button class="btn-ctrl" id="miniBtnPrev" title="পূর্ববর্তী সূরা" aria-label="পূর্ববর্তী সূরা">⏮</button>
+        <button class="btn-ctrl btn-ctrl-play-main" id="miniBtnPlay" title="চালান / থামান" aria-label="চালান / থামান">▶</button>
+        <button class="btn-ctrl" id="miniBtnNext" title="পরবর্তী সূরা" aria-label="পরবর্তী সূরা">⏭</button>
       </div>
     </div>
   </div>
 
-  <!-- FULL SCREEN PLAYER MODAL -->
-  <div class="player-modal" id="playerModal">
+  <!-- FULL SCREEN PLAYER MODAL / BOTTOM SHEET -->
+  <div class="player-modal" id="playerModal" role="dialog" aria-modal="true" aria-labelledby="playerSurahTitle">
+    <!-- Drag indicator handle for mobile swipe feel -->
+    <div class="modal-drag-indicator" id="playerDragIndicator"></div>
+
     <div class="player-modal-header">
-      <button class="btn-ctrl" id="btnClosePlayer" style="font-size: 1.5rem;">✕</button>
-      <div style="font-size: 0.95rem; font-weight: 600; color: var(--gold-light);">এখন বাজছে</div>
-      <button class="btn-ctrl" id="btnReadFromPlayer" title="আয়াত পড়ুন" style="font-size: 1.3rem;">📖</button>
+      <button class="btn-modal-close" id="btnClosePlayer" title="প্লেয়ার ছোট করুন" aria-label="প্লেয়ার ছোট করুন">
+        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+      <div class="player-header-title">
+        <span>এখন বাজছে</span>
+        <div class="now-playing-waves">
+          <span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+      <button class="btn-modal-action" id="btnReadFromPlayer" title="এই সূরার আয়াত পড়ুন" aria-label="আয়াত পড়ুন">
+        📖 আয়াত
+      </button>
     </div>
 
     <div class="player-body">
       <div class="medallion-container" id="medallionContainer">
-        <div class="medallion-number" id="medallionNumber">সূরা ১</div>
+        <div class="medallion-halo"></div>
+        <div class="medallion-icon-wrap">
+          <img src="/icons/icon.svg" alt="Holy Quran" class="medallion-quran-icon" width="76" height="76">
+        </div>
         <div class="medallion-arabic" id="medallionArabic">الفاتحة</div>
+        <div class="medallion-number" id="medallionNumber">সূরা ১</div>
         <div class="medallion-badge" id="medallionBadge">মাক্কী • ৭ আয়াত</div>
       </div>
 
@@ -101,42 +153,71 @@
         <div class="player-offlineTag" id="playerOfflineTag">⚡ অফলাইন অডিও সক্রিয়</div>
       </div>
 
-      <!-- Scrubber -->
+      <!-- Scrubber & Timings Section -->
       <div class="scrubber-section">
-        <input type="range" class="seek-slider" id="seekSlider" min="0" max="100" value="0">
+        <div class="seek-slider-container">
+          <input type="range" class="seek-slider" id="seekSlider" min="0" max="100" value="0" aria-label="সময় পরিবর্তন">
+        </div>
         <div class="time-row">
-          <span id="currentTimeDisplay">০০:০০</span>
-          <span id="totalDurationDisplay">০০:০০</span>
+          <span id="currentTimeDisplay" class="time-text current">০০:০০</span>
+          <span class="time-remaining-pill" id="timeRemainingDisplay">-০০:০০</span>
+          <span id="totalDurationDisplay" class="time-text total">০০:০০</span>
         </div>
       </div>
 
-      <!-- Main Controls -->
+      <!-- Main Controls Row -->
       <div class="main-controls-row">
-        <button class="btn-sec-ctrl" id="btnRewind" title="১০ সেকেন্ড পেছনে">↺ 10s</button>
-        <button class="btn-sec-ctrl" id="btnMainPrev" title="পূর্ববর্তী সূরা">⏮</button>
-        <button class="btn-main-play" id="btnMainPlay">▶</button>
-        <button class="btn-sec-ctrl" id="btnMainNext" title="পরবর্তী সূরা">⏭</button>
-        <button class="btn-sec-ctrl" id="btnForward" title="১০ সেকেন্ড সামনে">10s ↻</button>
+        <button class="btn-sec-ctrl" id="btnRewind" title="১০ সেকেন্ড পেছনে" aria-label="১০ সেকেন্ড পেছনে">
+          <span class="skip-num">10</span>
+          <span class="skip-icon">↺</span>
+        </button>
+        <button class="btn-sec-ctrl" id="btnMainPrev" title="পূর্ববর্তী সূরা" aria-label="পূর্ববর্তী সূরা">⏮</button>
+        <button class="btn-main-play" id="btnMainPlay" title="চালান / থামান" aria-label="চালান / থামান">▶</button>
+        <button class="btn-sec-ctrl" id="btnMainNext" title="পরবর্তী সূরা" aria-label="পরবর্তী সূরা">⏭</button>
+        <button class="btn-sec-ctrl" id="btnForward" title="১০ সেকেন্ড সামনে" aria-label="১০ সেকেন্ড সামনে">
+          <span class="skip-icon">↻</span>
+          <span class="skip-num">10</span>
+        </button>
       </div>
 
-      <!-- Extra Controls -->
+      <!-- Extra Controls (Speed, Repeat) -->
       <div class="secondary-options-row">
-        <button class="opt-btn" id="btnSpeed">1x</button>
-        <button class="opt-btn active" id="btnRepeat">🔁 সকল সূরা</button>
+        <button class="opt-btn" id="btnSpeed" title="প্লেব্যাক গতি পরিবর্তন করুন">গতি: 1.0x</button>
+        <button class="opt-btn active" id="btnRepeat" title="পুনরাবৃত্তি মোড পরিবর্তন করুন">🔁 সকল সূরা</button>
       </div>
     </div>
   </div>
 
   <!-- AYAH BY AYAH READER MODAL -->
-  <div class="ayah-modal" id="ayahModal">
+  <div class="ayah-modal" id="ayahModal" role="dialog" aria-modal="true" aria-labelledby="ayahModalTitle">
     <div class="ayah-modal-header">
-      <button class="btn-ctrl" id="btnCloseAyah" style="font-size: 1.5rem;">✕</button>
-      <div style="text-align: center;">
-        <div style="font-weight: 700; color: var(--gold-light);" id="ayahModalTitle">আল-ফাতিহা</div>
-        <div style="font-size: 0.78rem; color: var(--text-muted);" id="ayahModalSubtitle">৭ আয়াত • মাক্কী</div>
+      <div class="ayah-header-left">
+        <button class="btn-modal-close" id="btnCloseAyah" title="বন্ধ করুন" aria-label="পড়ার পাতা বন্ধ করুন">
+          <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+        <div class="ayah-header-text-block">
+          <div class="ayah-modal-title" id="ayahModalTitle">আল-ফাতিহা</div>
+          <div class="ayah-modal-subtitle" id="ayahModalSubtitle">৭ আয়াত • মাক্কী</div>
+        </div>
       </div>
-      <div id="ayahCacheBadge" style="font-size: 0.75rem; color: var(--accent-green); background: rgba(0,0,0,0.3); padding: 4px 8px; border-radius: 10px;">
-        💾 অফলাইন
+
+      <div class="ayah-header-right">
+        <!-- Font sizing controls for reading accessibility -->
+        <div class="font-size-group">
+          <button class="btn-font-size" id="btnFontDec" title="ফন্ট ছোট করুন">A-</button>
+          <button class="btn-font-size" id="btnFontInc" title="ফন্ট বড় করুন">A+</button>
+        </div>
+        <!-- Quick Audio toggle from inside reader -->
+        <button class="btn-reader-audio" id="btnReaderAudio" title="এই সূরা অডিও শুনুন">
+          <span class="reader-audio-icon" id="readerAudioIcon">▶</span>
+          <span class="reader-audio-text" id="readerAudioText">শুনুন</span>
+        </button>
+        <div id="ayahCacheBadge" class="ayah-cache-badge">
+          💾 অফলাইন
+        </div>
       </div>
     </div>
 
