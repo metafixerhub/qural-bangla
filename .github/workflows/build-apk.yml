@@ -68,12 +68,12 @@ jobs:
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.0.3
-          name: "Quran Audio Bangla v1.0.3"
+          tag_name: v1.0.4
+          name: "Quran Audio Bangla v1.0.4"
           draft: false
           prerelease: false
           body: |
-            ## কুরআনুল কারীম (Quran Audio Bangla) - Release v1.0.3
+            ## কুরআনুল কারীম (Quran Audio Bangla) - Release v1.0.4
 
             ### 📱 Direct Download
             Direct 1-click APK download:
